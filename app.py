@@ -1,3 +1,4 @@
+# app.py
 import streamlit as st
 import pickle
 import string
@@ -48,11 +49,11 @@ if st.button('Predict'):
     transformed_sms = transform_text(input_sms)
     # 2. Vectorize
     vector_input = tfidf.transform([transformed_sms])
-    # 3. Predict with probability
+    # 3. Predict
     result = model.predict(vector_input)[0]
-    prob = model.predict_proba(vector_input)[0]
-    
     # 4. Display
-    st.write(f"Prediction: {'Spam' if result == 1 else 'Not Spam'}")
-    st.write(f"Spam Probability: {prob[1]:.2f}")
-    st.write(f"Not Spam Probability: {prob[0]:.2f}")
+    if result == 1:
+        st.header("Spam")
+    else:
+        st.header("Not Spam")
+
